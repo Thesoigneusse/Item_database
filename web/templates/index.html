@@ -1,83 +1,75 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dofus Stuffs</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" href="/static/favicon.ico">
+</head>
+<body>
+    <!-- Barre d’info utilisateur -->
+    <div style="margin-bottom:20px;">
+        {% if current_user.username %}
+            <strong>Connecté en tant que : {{ current_user.username }}</strong>
+            {% if current_user.is_admin %}
+                (Admin)
+            {% else %}
+                (Utilisateur standard)
+            {% endif %}
+            - <a href="/logout">Se déconnecter</a>
+        {% else %}
+            <strong>Non connecté</strong> - <a href="/login">Se connecter</a>
+        {% endif %}
+    </div>
 
-{% block content %}
-<h2>Créer un item</h2>
-    <form action="/add_item" method="post">
-        <!-- Source -->
-        <select name="source">
-            <option value="user">Mes items</option>
-            <option value="perfect">Items parfaits</option>
-        </select>
-        <!-- Nom et type -->
-        <label for="name">Nom de l'item :</label>
-        <input type="text" id="name" name="name" required><br><br>
+    <h1>Items Utilisateur</h1>
+    <a href="/add_user_item">Ajouter un item personnalisé</a>
+    <ul>
+        {% for item_id, item in user_items %}
+        <li>
+            <strong>{{ item.name }} ({{ item.categorie }}, lvl {{ item.level }})</strong>
+            <a href="/edit_user_or_perfect_item/{{ item_id }}/user">Modifier</a>
+            {% if current_user.is_admin %}
+                <a href="/delete_item/{{ item_id }}/user" onclick="return confirm('Supprimer cet item utilisateur ?')">Supprimer</a>
+            {% endif %}
+            <table border="1" cellpadding="5">
+                <tr><th>Stat</th><th>Valeur</th></tr>
+                {% for stat_name, value in item.stats.items() %}
+                    {% if value is not none %}
+                    <tr>
+                        <td>{{ stat_name }}</td>
+                        <td>{{ value }}</td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </li>
+        {% endfor %}
+    </ul>
 
-        <label for="type">Type :</label>
-        <select id="type" name="type" required>
-            <option value="anneau">Anneau</option>
-            <option value="ceinture">Ceinture</option>
-            <option value="cape">Cape</option>
-            <option value="bottes">Bottes</option>
-            <option value="coiffe">Coiffe</option>
-            <option value="amulette">Amulette</option>
-            <option value="arme">Arme</option>
-            <option value="bouclier">Bouclier</option>
-        </select><br><br>
-
-        <label for="level">Niveau :</label>
-        <input type="number" id="level" name="level" min="1" max="200" required><br><br>
-
-        <!-- Stats principales -->
-        <fieldset>
-            <legend>Effets Principaux</legend>
-            <label><input type="checkbox" name="main_stats" value="force"> Force</label>
-            <label><input type="checkbox" name="main_stats" value="intelligence"> Intelligence</label>
-            <label><input type="checkbox" name="main_stats" value="agilité"> Agilité</label>
-            <label><input type="checkbox" name="main_stats" value="chance"> Chance</label>
-        </fieldset><br>
-
-        <!-- Effets secondaires -->
-        <fieldset>
-            <legend>Effets Secondaires</legend>
-            <label><input type="checkbox" name="secondary_stats" value="vitalité"> Vitalité</label>
-            <label><input type="checkbox" name="secondary_stats" value="sagesse"> Sagesse</label>
-            <label><input type="checkbox" name="secondary_stats" value="prospection"> Prospection</label>
-        </fieldset><br>
-
-        <!-- Dommages -->
-        <fieldset>
-            <legend>Dommages</legend>
-            <label><input type="checkbox" name="damages" value="feu"> Feu</label>
-            <label><input type="checkbox" name="damages" value="eau"> Eau</label>
-            <label><input type="checkbox" name="damages" value="air"> Air</label>
-            <label><input type="checkbox" name="damages" value="terre"> Terre</label>
-        </fieldset><br>
-
-        <!-- Résistances -->
-        <fieldset>
-            <legend>Résistances</legend>
-            <label><input type="checkbox" name="resistances" value="feu"> Feu</label>
-            <label><input type="checkbox" name="resistances" value="eau"> Eau</label>
-            <label><input type="checkbox" name="resistances" value="air"> Air</label>
-            <label><input type="checkbox" name="resistances" value="terre"> Terre</label>
-        </fieldset><br>
-
-        <button type="submit">Ajouter l'item</button>
-    </form>
-
-<hr>
-<h2>Liste des items</h2>
-<ul>
-    {% for id_, item in items %}
-        <li>{{ item.name }} ({{ item.type }}, lvl {{ item.level }})</li>
-    {% endfor %}
-</ul>
-
-<hr>
-<h2>Liste des stuffs</h2>
-<ul>
-    {% for id_, name, items_ids in stuffs %}
-        <li>{{ name }} - Items: {{ items_ids }}</li>
-    {% endfor %}
-</ul>
-{% endblock %}
+    <h1>Items Parfaits</h1>
+    <a href="/add_perfect_item">Ajouter un item parfait</a>
+    <ul>
+        {% for item_id, item in perfect_items %}
+        <li>
+            <strong>{{ item.name }} ({{ item.categorie }}, lvl {{ item.level }})</strong>
+            {% if current_user.is_admin %}
+                <a href="/edit_user_or_perfect_item/{{ item_id }}/perfect">Modifier / Copier</a>
+                <a href="/delete_item/{{ item_id }}/perfect" onclick="return confirm('Supprimer cet item parfait ?')">Supprimer</a>
+            {% endif %}
+            <table border="1" cellpadding="5">
+                <tr><th>Stat</th><th>Valeur</th></tr>
+                {% for stat_name, value in item.stats.items() %}
+                    {% if value is not none %}
+                    <tr>
+                        <td>{{ stat_name }}</td>
+                        <td>{{ value }}</td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

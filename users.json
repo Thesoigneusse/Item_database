@@ -1,0 +1,4 @@
+[
+    {"username": "sudo", "password": "sudo", "is_admin": true},
+    {"username": "user1", "password": "secret", "is_admin": false}
+]

@@ -56,10 +56,10 @@ def menu():
         choix = input("Choix: ")
         if choix == "1":
             name = input("Nom de l'item: ")
-            type_ = input("Type (anneau, ceinture, cape, coiffe, etc.): ").lower()
+            categorie = input("categorie (anneau, ceinture, cape, coiffe, etc.): ").lower()
             level = int(input("Niveau: "))
             stats = choisir_stats()
-            item = Item(name, type_, level, stats)
+            item = Item(name, categorie, level, stats)
             db.add_item(item)
 
         elif choix == "2":

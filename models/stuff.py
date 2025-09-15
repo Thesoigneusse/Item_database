@@ -6,14 +6,14 @@ class Stuff:
         self.items = {}
 
     def add_item(self, item: Item) -> bool:
-        if item.type == "anneau":
+        if item.categorie == "anneau":
             if len(self.items.get("anneau", [])) >= 2:
                 return False
             self.items.setdefault("anneau", []).append(item)
         else:
-            if item.type in self.items:
+            if item.categorie in self.items:
                 return False
-            self.items[item.type] = [item]
+            self.items[item.categorie] = [item]
         return True
 
     def total_stats(self):
@@ -26,7 +26,7 @@ class Stuff:
 
     def __repr__(self):
         lines = []
-        for type_, items in self.items.items():
+        for categorie, items in self.items.items():
             for item in items:
                 lines.append(f"- {item}")
         return "\n".join(lines)

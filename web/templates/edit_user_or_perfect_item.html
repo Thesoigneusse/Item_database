@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier un item utilisateur</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" href="/static/favicon.ico">
+</head>
+<body>
+    <h1>Modifier {{ item.name }}</h1>
+    <form action="/edit_user_or_perfect_item/{{ item_id }}" method="post">
+        <label>Nom: <input type="text" name="name" value="{{ item.name }}"></label><br>
+        <label>Catégorie: <input type="text" name="categorie" value="{{ item.categorie }}"></label><br>
+        <label>Niveau: <input type="number" name="level" value="{{ item.level }}"></label><br><br>
+
+        {% for category, stats in categories.items() %}
+            <h3>{{ category }}</h3>
+            <table border="1" cellpadding="5">
+                <tr>
+                    <th>Stat</th>
+                    <th>Valeur</th>
+                </tr>
+                {% for stat in stats %}
+                <tr>
+                    <td>{{ stat }}</td>
+                    <td>
+                        <input type="number" name="stat_{{ stat | replace(' ', '_') }}"
+                               value="{{ item.stats.get(stat) if item.stats.get(stat) is not none }}">
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <br>
+        {% endfor %}
+
+        <button type="submit">Enregistrer</button>
+    </form>
+</body>
+</html>

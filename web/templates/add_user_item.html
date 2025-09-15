@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajouter un Item</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" href="/static/favicon.ico">
+</head>
+<body>
+    <h1>Ajouter un item personnalisé</h1>
+    <form action="/add_user_item" method="post">
+        <label>Nom: <input type="text" name="name" required></label><br>
+        <label>categorie: 
+            <select name="categorie" required>
+                <option value="anneau">Anneau</option>
+                <option value="ceinture">Ceinture</option>
+                <option value="cape">Cape</option>
+                <option value="bottes">Bottes</option>
+                <option value="coiffe">Coiffe</option>
+                <option value="amulette">Amulette</option>
+                <option value="arme">Arme</option>
+                <option value="bouclier">Bouclier</option>
+            </select>
+        </label><br>
+        <label>Niveau: <input type="number" name="level" min="1" required></label><br>
+
+        <h3>Stats principales</h3>
+        <input type="text" name="main_stats"><br>
+        <h3>Stats secondaires</h3>
+        <input type="text" name="secondary_stats"><br>
+        <h3>Dommages</h3>
+        <input type="text" name="damages"><br>
+        <h3>Résistances</h3>
+        <input type="text" name="resistances"><br>
+
+        <button type="submit">Ajouter</button>
+    </form>
+    <a href="/">Retour</a>
+</body>
+</html>
