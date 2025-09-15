@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Créer un item</h2>
+<form action="/add_item" method="post">
+    <label>Nom: <input type="text" name="name" required></label><br>
+    <label>Type: <input type="text" name="type_" required></label><br>
+    <label>Niveau: <input type="number" name="level" required></label><br>
+    <button type="submit">Ajouter</button>
+</form>
+
+<hr>
+<h2>Liste des items</h2>
+<ul>
+    {% for id_, item in items %}
+        <li>{{ item.name }} ({{ item.type }}, lvl {{ item.level }})</li>
+    {% endfor %}
+</ul>
+
+<hr>
+<h2>Liste des stuffs</h2>
+<ul>
+    {% for id_, name, items_ids in stuffs %}
+        <li>{{ name }} - Items: {{ items_ids }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
