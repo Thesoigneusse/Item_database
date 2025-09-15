@@ -2,12 +2,68 @@
 
 {% block content %}
 <h2>Créer un item</h2>
-<form action="/add_item" method="post">
-    <label>Nom: <input type="text" name="name" required></label><br>
-    <label>Type: <input type="text" name="type_" required></label><br>
-    <label>Niveau: <input type="number" name="level" required></label><br>
-    <button type="submit">Ajouter</button>
-</form>
+    <form action="/add_item" method="post">
+        <!-- Source -->
+        <select name="source">
+            <option value="user">Mes items</option>
+            <option value="perfect">Items parfaits</option>
+        </select>
+        <!-- Nom et type -->
+        <label for="name">Nom de l'item :</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="type">Type :</label>
+        <select id="type" name="type" required>
+            <option value="anneau">Anneau</option>
+            <option value="ceinture">Ceinture</option>
+            <option value="cape">Cape</option>
+            <option value="bottes">Bottes</option>
+            <option value="coiffe">Coiffe</option>
+            <option value="amulette">Amulette</option>
+            <option value="arme">Arme</option>
+            <option value="bouclier">Bouclier</option>
+        </select><br><br>
+
+        <label for="level">Niveau :</label>
+        <input type="number" id="level" name="level" min="1" max="200" required><br><br>
+
+        <!-- Stats principales -->
+        <fieldset>
+            <legend>Effets Principaux</legend>
+            <label><input type="checkbox" name="main_stats" value="force"> Force</label>
+            <label><input type="checkbox" name="main_stats" value="intelligence"> Intelligence</label>
+            <label><input type="checkbox" name="main_stats" value="agilité"> Agilité</label>
+            <label><input type="checkbox" name="main_stats" value="chance"> Chance</label>
+        </fieldset><br>
+
+        <!-- Effets secondaires -->
+        <fieldset>
+            <legend>Effets Secondaires</legend>
+            <label><input type="checkbox" name="secondary_stats" value="vitalité"> Vitalité</label>
+            <label><input type="checkbox" name="secondary_stats" value="sagesse"> Sagesse</label>
+            <label><input type="checkbox" name="secondary_stats" value="prospection"> Prospection</label>
+        </fieldset><br>
+
+        <!-- Dommages -->
+        <fieldset>
+            <legend>Dommages</legend>
+            <label><input type="checkbox" name="damages" value="feu"> Feu</label>
+            <label><input type="checkbox" name="damages" value="eau"> Eau</label>
+            <label><input type="checkbox" name="damages" value="air"> Air</label>
+            <label><input type="checkbox" name="damages" value="terre"> Terre</label>
+        </fieldset><br>
+
+        <!-- Résistances -->
+        <fieldset>
+            <legend>Résistances</legend>
+            <label><input type="checkbox" name="resistances" value="feu"> Feu</label>
+            <label><input type="checkbox" name="resistances" value="eau"> Eau</label>
+            <label><input type="checkbox" name="resistances" value="air"> Air</label>
+            <label><input type="checkbox" name="resistances" value="terre"> Terre</label>
+        </fieldset><br>
+
+        <button type="submit">Ajouter l'item</button>
+    </form>
 
 <hr>
 <h2>Liste des items</h2>
