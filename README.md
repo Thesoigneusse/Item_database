@@ -1,1 +1,2 @@
 # Item_database
+Création d'un site web similaire à dofusbook, dofusdb, etc mais capable de prendre en compte les items personnels pour chaque joueur dans le but de re-utiliser les items possédés par le joueur pour produire des stuffs plus précis.
