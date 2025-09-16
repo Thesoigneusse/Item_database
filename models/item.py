@@ -21,6 +21,7 @@ class Item:
     @property
     def stats(self) -> Dict[str, int]:
         return self._stats
+    
     @stats.setter
     def stats(self, new_stats: Dict[str, int]):
         self._stats = new_stats

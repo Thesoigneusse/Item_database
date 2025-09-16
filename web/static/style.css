@@ -16,3 +16,16 @@ form label {
 button {
     margin-top: 10px;
 }
+
+.items-container {
+    display: flex;           /* aligne les items sur la même ligne */
+    flex-wrap: wrap;         /* passe à la ligne si ça dépasse la fenêtre */
+    gap: 20px;               /* espace entre les items */
+}
+
+.item-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 250px;            /* largeur fixe ou max-width selon le design */
+    box-sizing: border-box;  /* inclut padding dans la largeur */
+}

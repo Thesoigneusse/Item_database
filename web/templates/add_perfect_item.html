@@ -4,31 +4,65 @@
     <meta charset="UTF-8">
     <title>Ajouter un item parfait</title>
     <link rel="icon" href="/static/favicon.ico">
+    <style>
+        .categories-container {
+            display: flex;
+            gap: 20px; /* espace entre les colonnes */
+        }
+        .category {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .category table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .category th, .category td {
+            border: 1px solid #999;
+            padding: 4px 6px;
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
     <h1>Ajouter un item parfait</h1>
     <form action="/add_perfect_item" method="post">
         <label>Nom: <input type="text" name="name"></label><br>
-        <label>Catégorie: <input type="text" name="categorie"></label><br>
+        <label>Catégorie: 
+            <select name="categorie" required>
+                <option value="anneau">Anneau</option>
+                <option value="ceinture">Ceinture</option>
+                <option value="cape">Cape</option>
+                <option value="bottes">Bottes</option>
+                <option value="coiffe">Coiffe</option>
+                <option value="amulette">Amulette</option>
+                <option value="arme">Arme</option>
+                <option value="bouclier">Bouclier</option>
+            </select>
+        </label><br>
         <label>Niveau: <input type="number" name="level"></label><br><br>
-        {% for category, stats in categories.items() %}
-            <h3>{{ category }}</h3>
-            <table border="1" cellpadding="5">
-                <tr>
-                    <th>Stat</th>
-                    <th>Valeur</th>
-                </tr>
-                {% for stat in stats %}
-                <tr>
-                    <td>{{ stat }}</td>
-                    <td><input type="number" name="stat_{{ stat | replace(' ', '_') }}"></td>
-                </tr>
-                {% endfor %}
-            </table>
-            <br>
-        {% endfor %}
 
-        <button type="submit">Ajouter</button>
+        <div class="categories-container">
+            {% for category, stats in categories.items() %}
+            <div class="category">
+                <h3>{{ category }}</h3>
+                <table>
+                    <tr>
+                        <th>Stat</th>
+                        <th>Valeur</th>
+                    </tr>
+                    {% for stat in stats %}
+                    <tr>
+                        <td>{{ stat }}</td>
+                        <td><input type="number" name="stat_{{ stat | replace(' ', '_') }}"></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endfor %}
+        </div>
+
+        <br><button type="submit">Ajouter</button>
     </form>
 </body>
 </html>

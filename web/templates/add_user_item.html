@@ -4,6 +4,25 @@
     <meta charset="UTF-8">
     <title>Ajouter un Item</title>
     <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .categories-container {
+            display: flex;
+            gap: 20px; /* espace entre les colonnes */
+        }
+        .category {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .category table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .category th, .category td {
+            border: 1px solid #999;
+            padding: 4px 6px;
+            text-align: left;
+        }
+    </style>
     <link rel="icon" href="/static/favicon.ico">
 </head>
 <body>
@@ -24,14 +43,25 @@
         </label><br>
         <label>Niveau: <input type="number" name="level" min="1" required></label><br>
 
-        <h3>Stats principales</h3>
-        <input type="text" name="main_stats"><br>
-        <h3>Stats secondaires</h3>
-        <input type="text" name="secondary_stats"><br>
-        <h3>Dommages</h3>
-        <input type="text" name="damages"><br>
-        <h3>Résistances</h3>
-        <input type="text" name="resistances"><br>
+        <div class="categories-container">
+            {% for category, stats in categories.items() %}
+            <div class="category">
+                <h3>{{ category }}</h3>
+                <table>
+                    <tr>
+                        <th>Stat</th>
+                        <th>Valeur</th>
+                    </tr>
+                    {% for stat in stats %}
+                    <tr>
+                        <td>{{ stat }}</td>
+                        <td><input type="number" name="stat_{{ stat | replace(' ', '_') }}"></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            {% endfor %}
+        </div>
 
         <button type="submit">Ajouter</button>
     </form>

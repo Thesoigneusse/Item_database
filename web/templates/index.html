@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Dofus Stuffs</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/style.css?v=2">
     <link rel="icon" href="/static/favicon.ico">
 </head>
 <body>
@@ -23,14 +23,15 @@
     </div>
 
     <h1>Items Utilisateur</h1>
-    <a href="/add_user_item">Ajouter un item personnalisé</a>
+    <strong> *** To Be Done *** </strong>
+    <a href="/add_user_item">Ajouter un item personnalisé</a> -->
     <ul>
         {% for item_id, item in user_items %}
         <li>
             <strong>{{ item.name }} ({{ item.categorie }}, lvl {{ item.level }})</strong>
             <a href="/edit_user_or_perfect_item/{{ item_id }}/user">Modifier</a>
             {% if current_user.is_admin %}
-                <a href="/delete_item/{{ item_id }}/user" onclick="return confirm('Supprimer cet item utilisateur ?')">Supprimer</a>
+                <a href="/delete_user_item/{{ item_id }}" onclick="return confirm('Supprimer cet item utilisateur ?')">Supprimer</a>
             {% endif %}
             <table border="1" cellpadding="5">
                 <tr><th>Stat</th><th>Valeur</th></tr>
@@ -49,13 +50,14 @@
 
     <h1>Items Parfaits</h1>
     <a href="/add_perfect_item">Ajouter un item parfait</a>
-    <ul>
+
+    <div class="items-container">
         {% for item_id, item in perfect_items %}
-        <li>
+        <div class="item-card">
             <strong>{{ item.name }} ({{ item.categorie }}, lvl {{ item.level }})</strong>
             {% if current_user.is_admin %}
-                <a href="/edit_user_or_perfect_item/{{ item_id }}/perfect">Modifier / Copier</a>
-                <a href="/delete_item/{{ item_id }}/perfect" onclick="return confirm('Supprimer cet item parfait ?')">Supprimer</a>
+                <a href="/edit_perfect_item_to_user_db/{{ item_id }}">Modifier / Copier</a>
+                <a href="/delete_perfect_item/{{ item_id }}" onclick="return confirm('Supprimer cet item parfait ?')">Supprimer</a>
             {% endif %}
             <table border="1" cellpadding="5">
                 <tr><th>Stat</th><th>Valeur</th></tr>
@@ -68,8 +70,9 @@
                     {% endif %}
                 {% endfor %}
             </table>
-        </li>
+        </div>
         {% endfor %}
-    </ul>
+    </div>
+
 </body>
 </html>

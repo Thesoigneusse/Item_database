@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Modifier {{ item.name }}</h1>
-    <form action="/edit_user_or_perfect_item/{{ item_id }}" method="post">
+    <form action="/edit_perfect_item_to_user_db/{{ item_id }}" method="post">
         <label>Nom: <input type="text" name="name" value="{{ item.name }}"></label><br>
         <label>Catégorie: <input type="text" name="categorie" value="{{ item.categorie }}"></label><br>
         <label>Niveau: <input type="number" name="level" value="{{ item.level }}"></label><br><br>
